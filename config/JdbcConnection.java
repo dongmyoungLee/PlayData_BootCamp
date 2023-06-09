@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class JdbcConnection {
-    private final String url = "jdbc:mysql://localhost:3306/test" + "?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
-    private final String root = "dm";
-    private final String password = "1234";
+    private final String url = "jdbc:mysql://localhost:3306/test" +
+            "?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
+    private final String root = "root";
+    private final String password = "1q2w3e4r!!";
 
 
     public Connection getJdbc() {
@@ -18,6 +19,8 @@ public class JdbcConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("연결 됬읍니다");
         return conn;
     }
+
 }
