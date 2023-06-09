@@ -19,7 +19,6 @@ public class JdbcConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("연결 됬읍니다");
         return conn;
     }
 

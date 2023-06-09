@@ -1,6 +1,7 @@
 package view;
 
 import controller.MovieController;
+import service.MovieService;
 
 import java.util.Scanner;
 
@@ -59,6 +60,8 @@ public class MovieView {
             System.out.println("========== 메뉴를 선택 해주세요 ==========");
             System.out.println("1. 회원 리스트 조회하기");
             System.out.println("2. 영화 추가하기");
+            System.out.println("3. 회원 조회하기");
+
             System.out.println("0. 로그아웃");
             System.out.print("입력 : ");
 
@@ -72,6 +75,10 @@ public class MovieView {
                 case 2 :
                     // 영화 추가하기
                     MovieController.getController().insertMovieInfo();
+                    break;
+                case 3 :
+                    // 회원 정보 조회하기
+                    MovieService.getService().getUserData();
                     break;
                 case 0 :
                     // 종료

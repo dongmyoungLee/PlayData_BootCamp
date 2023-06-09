@@ -1,11 +1,10 @@
-import config.JdbcConnection;
 import controller.MovieController;
+import repository.MovieRepository;
 
 public class Main {
     public static void main(String[] args) {
-          JdbcConnection conn = new JdbcConnection();
-          conn.getJdbc();
-//        MovieController.getController().mainMenu();
+//        MovieRepository.getRepository().getUserData("123");
+        MovieController.getController().mainMenu();
 
     }
 }

@@ -18,9 +18,7 @@ public class UserDto {
     }
 
     @Override
-    public String toString() {
-        return userId + " 님 안녕하세요 ? ";
-    }
+    public String toString() {return userId;   }
 
     public void setUserId(String userId) {
         this.userId = userId;
