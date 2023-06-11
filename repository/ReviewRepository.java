@@ -2,10 +2,7 @@ package repository;
 
 import config.JdbcConnection;
 import controller.UserController;
-import domain.dto.MyReviewDto;
-import domain.dto.ReviewDto;
-import domain.dto.ReviewListDto;
-import domain.dto.WatchedMovies;
+import domain.dto.*;
 import service.UserService;
 
 import java.sql.Connection;
@@ -14,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReviewRepository {
     private static ReviewRepository repository;
@@ -206,5 +204,41 @@ public class ReviewRepository {
 
         return reviewList;
     }
+
+
+
+//    리뷰 평점보기
+    public List<RatedMovieDto> showRatedMovies(String sortOrder) {
+        Connection conn = new JdbcConnection().getJdbc();
+        String sql = "select m.title, m.release_date, m.duration, m.description, m.rating, m.genre, m.director, r.rating as reviewRating from movie m join review r on m.movie_seq = r.movie_seq order by r.rating " + sortOrder + " limit 5";
+
+        List<RatedMovieDto> reviewList =  new ArrayList<>();
+
+
+
+        try{
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            ResultSet resultSet = psmt.executeQuery();
+
+            while (resultSet.next()){
+                RatedMovieDto reviewdto = new RatedMovieDto();
+                reviewdto.setTitle(resultSet.getString("title"));
+                reviewdto.setReleaseDate(resultSet.getDate("release_date"));
+                reviewdto.setDuration(resultSet.getInt("duration"));
+                reviewdto.setDescription(resultSet.getString("description"));
+                reviewdto.setRating(resultSet.getInt("rating"));
+                reviewdto.setGenre(resultSet.getString("genre"));
+                reviewdto.setDirector(resultSet.getString("director"));
+                reviewdto.setReviewRating(resultSet.getInt("reviewRating"));
+                reviewList.add(reviewdto);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reviewList;
+    }
+
+
 
 }
