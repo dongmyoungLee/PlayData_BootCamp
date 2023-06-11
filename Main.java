@@ -1,7 +1,7 @@
-import controller.MovieController;
+import controller.UserController;
 
 public class Main {
     public static void main(String[] args) {
-        MovieController.getController().mainMenu();
+        UserController.getController().mainMenu();
     }
 }
