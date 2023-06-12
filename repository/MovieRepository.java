@@ -14,8 +14,9 @@ import java.util.*;
 
 public class MovieRepository {
     private static MovieRepository repository;
+
     public static MovieRepository getRepository() {
-        if(repository == null) repository = new MovieRepository();
+        if (repository == null) repository = new MovieRepository();
         return repository;
     }
 
@@ -79,7 +80,7 @@ public class MovieRepository {
             psmt.setInt(1, movie_seq);
             psmt.setInt(2, UserService.loginUserSeq);
 
-            if(psmt.executeUpdate() == 1){
+            if (psmt.executeUpdate() == 1) {
                 result = 1;
             }
 
@@ -384,5 +385,41 @@ public class MovieRepository {
         return actorDtoList;
     }
 
+    public List<MovieDto> movieByActor(int actor) {
+        Connection conn = new JdbcConnection().getJdbc();
+        String sql = "select m.movie_seq, m.title, m.release_date, m.duration, m.description, m.rating, m.genre, m.director" +
+                ", m.link " +
+                "from movie_actor as ma join movie as m on ma.movie_seq = m.movie_seq " +
+                "where m.movie_seq = ?;";
+
+        List<MovieDto> movieDtoList = new ArrayList<>();
+
+        try {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, actor);
+            ResultSet resultSet = psmt.executeQuery();
+
+            while (resultSet.next()) {
+
+                MovieDto movieDto = new MovieDto();
+                movieDto.setMovie_seq(resultSet.getInt("movie_seq"));
+                movieDto.setTitle(resultSet.getString("title"));
+                movieDto.setReleaseDate(resultSet.getDate("release_date").toLocalDate());
+                movieDto.setDuration(resultSet.getInt("duration"));
+                movieDto.setDescription(resultSet.getString("description"));
+                movieDto.setRating(resultSet.getString("rating"));
+                movieDto.setGenre(resultSet.getString("genre"));
+                movieDto.setDirector(resultSet.getString("director"));
+                movieDto.setLink(resultSet.getString("link"));
+                movieDtoList.add(movieDto);
+            }
+
+        } catch (SQLException e) {
+            throw   new RuntimeException(e);
+        }
+        return movieDtoList;
+    }
+
 }
+
 

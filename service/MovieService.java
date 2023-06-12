@@ -235,4 +235,32 @@ public class MovieService {
 
         System.out.println("삭제가 완료되었습니다");
     }
-}
+
+
+    public void movieByActor() {
+        Scanner sc = new Scanner(System.in);
+
+        List<ActorDto> actorDtoList = MovieRepository.getRepository().actorList();
+        System.out.println("특정 배우가 출연한 영화를 확인하려면 배우명을 입력하세요.");
+
+        for (ActorDto actor : actorDtoList) {
+            System.out.print(actor.getActor_seq() + ". ");
+            System.out.print(actor.getName());
+            System.out.println();
+        }
+
+        int actor =Integer.parseInt(sc.nextLine());
+
+        List<MovieDto> movieByActorList = MovieRepository.getRepository().movieByActor(actor);
+
+        if(movieByActorList.size() == 0) {
+            System.out.println("해당하는 배우가 출연한 영화는 없습니다");
+            return;
+        }
+
+        for(MovieDto movieDto : movieByActorList) {
+            System.out.println(movieDto.toString());
+        }
+    }
+
+    }
