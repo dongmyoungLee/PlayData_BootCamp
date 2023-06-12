@@ -110,6 +110,7 @@ public class CommonView {
             System.out.println("3. 내가 쓴 리뷰 보기");
             System.out.println("4. 영화 별 리뷰 보기");
             System.out.println("5. 평점 순 영화 보기");
+            System.out.println("6. 감독으로 영화 보기");
             System.out.println("0. 종료");
             System.out.print("입력 : ");
 
@@ -136,6 +137,9 @@ public class CommonView {
                     // 영화 별 리뷰 보기..
                     ReviewController.getController().showRatedMovies();
                     break;
+
+                case 6 :
+                    MovieController.getController().getMovieByDiector();
                 case 0 :
                     // 종료
                     System.out.println("감사합니다. movie_hunter 였습니다.");

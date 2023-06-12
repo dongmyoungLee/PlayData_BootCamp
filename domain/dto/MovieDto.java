@@ -5,6 +5,21 @@ import java.util.Date;
 
 public class MovieDto {
 
+    @Override
+    public String toString() {
+        return
+                "No. " + movie_seq +
+                "  | 영화제목" + title + '\'' +
+                "  | 상영일 : " + releaseDate +
+                "  | 상영시간 : " + duration +
+                "  | 설명 : " + description + '\'' +
+                "  | 나이제한 : " + rating + '\'' +
+                        "  | 감독 : " + director + '\'' +
+                "  | 장르 : " + genre + '\'' +
+                "  | 링크 : '" + link + '\'' +
+                '}';
+    }
+
     private int movie_seq;
     private String title;
     private LocalDate releaseDate;

@@ -13,4 +13,6 @@ public class MovieController {
     public void watchMovie() {
         System.out.println(MovieService.getService().shownMovies());
     }
+
+    public void getMovieByDiector(){MovieService.getService().searchDirector();}
 }
