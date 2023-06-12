@@ -40,4 +40,10 @@ public class UserController {
         UserService.getService().deleteUser();
     }
 
+    public void fixByUserPw(){
+        UserService.getService().fixByUserPw();
+    }
+
+
+
 }
