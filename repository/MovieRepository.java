@@ -1,11 +1,8 @@
 package repository;
 
 import config.JdbcConnection;
-import controller.UserController;
 import domain.dto.ActorDto;
 import domain.dto.MovieDto;
-import domain.dto.UserDto;
-import domain.dto.WatchedMovies;
 import service.UserService;
 
 import java.sql.Connection;
@@ -61,6 +58,12 @@ public class MovieRepository {
             throw new RuntimeException(e);
         }
 
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return shownMoviesList;
     }
 
@@ -80,6 +83,12 @@ public class MovieRepository {
                 result = 1;
             }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -110,6 +119,13 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return 0;
 
     }
@@ -133,6 +149,13 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return 0;
 
     }
@@ -149,6 +172,12 @@ public class MovieRepository {
             if (psmt.executeUpdate() == 0) {
                 return 0;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -178,6 +207,13 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return movieDtoList;
 
     }
@@ -203,6 +239,14 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         return actorDtoList;
     }
 
@@ -236,6 +280,13 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return movieGenreMap;
     }
 
@@ -269,7 +320,68 @@ public class MovieRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return movieByGenreList;
+    }
+
+    public List<ActorDto> movieSelectActor(int movieSeqByDelete) {
+        Connection conn = new JdbcConnection().getJdbc();
+
+        String sql = "SELECT a.actor_seq, a.name\n" +
+                "FROM movie AS m\n" +
+                "INNER JOIN movie_actor AS ma ON m.movie_seq = ma.movie_seq\n" +
+                "INNER JOIN actor AS a ON ma.actor_seq = a.actor_seq\n" +
+                "WHERE m.movie_seq = ?;";
+
+        List<ActorDto> actorDtoList = new ArrayList<>();
+
+        try {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, movieSeqByDelete);
+            ResultSet resultSet = psmt.executeQuery();
+
+            while (resultSet.next()) {
+                int actorSeq = resultSet.getInt("actor_seq");
+                String actorName = resultSet.getString("name");
+
+                ActorDto actorDto = new ActorDto();
+                actorDto.setActor_seq(actorSeq);
+                actorDto.setName(actorName);
+
+                actorDtoList.add(actorDto);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return actorDtoList;
+    }
+
+    public List<ActorDto> movieDeleteActor(int movieSeqByDelete, int actorSeqByDelete) {
+        Connection conn = new JdbcConnection().getJdbc();
+        List<ActorDto> actorDtoList = new ArrayList<>();
+
+        String sql = "delete from movie_actor where movie_seq = ? and actor_seq = ? ;";
+
+        try {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, movieSeqByDelete);
+            psmt.setInt(2, actorSeqByDelete);
+
+            if (psmt.executeUpdate() == 0) {
+                System.out.println("출연진 삭제 에러..!!");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return actorDtoList;
     }
 
 }
