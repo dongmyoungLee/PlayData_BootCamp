@@ -45,6 +45,30 @@ public class UserRepository {
 
         return user;
     }
+    public UserDto informationInquiry(String userId){
+        Connection conn = new JdbcConnection().getJdbc();
+
+        String sql = "select * from user where user_id = ?";
+
+        UserDto user = new UserDto();
+
+        try{
+            PreparedStatement psmt = conn.prepareStatement(sql);
+
+            psmt. setString(1, userId);
+
+            ResultSet resultSet = psmt.executeQuery();
+
+            while (resultSet.next()){
+                user.setUserId(resultSet.getString("user_id"));
+                user.setUserEmail(resultSet.getString("user_email"));
+                user.setUserPwd(resultSet.getString("user_pwd"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
 
     public int signUp(UserDto dto){
         Connection conn = new JdbcConnection().getJdbc();
@@ -67,7 +91,6 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
         return result;
-
     }
 
     public UserDto findByUserId(String userId) {
@@ -97,6 +120,8 @@ public class UserRepository {
 
         return user;
     }
+
+
 
     public List<UserDto> findByUserList() {
         Connection conn = new JdbcConnection().getJdbc();

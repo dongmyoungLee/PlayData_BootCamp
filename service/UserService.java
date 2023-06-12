@@ -100,6 +100,17 @@ public class UserService {
             System.out.println("회원 삭제 에러");
         }
     }
+    public void getUserByUserId() {
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("너의 아이디를 입력해주세요.");
+
+        String user_id = sc.nextLine();
+
+
+       UserDto userList = UserRepository.getRepository().findByUserId(user_id);
+
+        System.out.println(userList);
+    }
 
 }

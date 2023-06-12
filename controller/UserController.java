@@ -40,4 +40,6 @@ public class UserController {
         UserService.getService().deleteUser();
     }
 
+    public void informatoinInq() { UserService.getService().getUserByUserId();}
+
 }

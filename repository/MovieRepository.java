@@ -29,7 +29,6 @@ public class MovieRepository {
 
         List<MovieDto> shownMoviesList = new ArrayList<MovieDto>();
 
-
         try {
             PreparedStatement psmt = conn.prepareStatement(sql);
 
