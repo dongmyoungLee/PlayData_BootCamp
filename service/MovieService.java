@@ -206,8 +206,11 @@ public class MovieService {
     public void movieSelectActor() {
         Scanner sc = new Scanner(System.in);
 
-        //영화 보여주기
+        //현재 상영중인 영화 보여주기
         List<MovieDto> movieSelectList = MovieRepository.getRepository().shownMovies();
+
+        //전체 영화 보여주기
+        //List<MovieDto> movieSelectList = MovieRepository.getRepository().movieList();
 
         for (MovieDto movie : movieSelectList) {
             System.out.print(movie.getMovie_seq() + ". ");
