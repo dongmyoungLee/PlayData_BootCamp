@@ -1,6 +1,7 @@
 package controller;
 
 import domain.dto.UserDto;
+import repository.UserRepository;
 import service.UserService;
 import view.CommonView;
 
@@ -38,6 +39,10 @@ public class UserController {
 
     public void deleteUser(){
         UserService.getService().deleteUser();
+    }
+
+    public void getBooking() {
+        UserService.getService().getUserSeq();
     }
 
 }

@@ -111,6 +111,7 @@ public class CommonView {
             System.out.println("4. 영화 별 리뷰 보기");
             System.out.println("5. 평점 순 영화 보기");
             System.out.println("6. 감독으로 영화 보기");
+            System.out.println("7. 예매내역 보기");
             System.out.println("0. 종료");
             System.out.print("입력 : ");
 
@@ -140,6 +141,8 @@ public class CommonView {
 
                 case 6 :
                     MovieController.getController().getMovieByDiector();
+                case 7 :
+                    UserController.getController().getBooking();
                 case 0 :
                     // 종료
                     System.out.println("감사합니다. movie_hunter 였습니다.");
