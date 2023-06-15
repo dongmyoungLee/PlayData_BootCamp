@@ -1,6 +1,7 @@
 package view;
 
 import controller.MovieController;
+import controller.TheatersController;
 import controller.UserController;
 import controller.ReviewController;
 import domain.dto.UserDto;
@@ -103,7 +104,7 @@ public class CommonView {
                     MovieController.getController().movieInsertActor();
                     break;
                 case 8 :
-                    // 영화에 출연한 배우 추가하기
+                    // 영화에 출연한 배우 삭제하기
                     MovieController.getController().deleteActor();
                     break;
                 case 0 :
@@ -135,6 +136,7 @@ public class CommonView {
             System.out.println("8. 특정 배우가 출연한 영화 보기");
             System.out.println("9. 비밀번호 변경하기");
             System.out.println("10. 내 정보 확인");
+            System.out.println("11. 영화 상영관 찾기");
 
             System.out.println("0. 종료");
             System.out.print("입력 : ");
@@ -181,6 +183,10 @@ public class CommonView {
                 case 10 :
                     // 내 정보 확인;
                     UserController.getController().informatoinInq();
+                    break;
+                case 11 :
+                    // 영화 상영관 찾기
+                    TheatersController.theatersController().showTheaters();
                     break;
                 case 0 :
                     // 종료
