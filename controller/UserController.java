@@ -3,6 +3,7 @@ package controller;
 import domain.dto.UserDto;
 import service.UserService;
 import view.CommonView;
+import repository.UserRepository;
 
 public class UserController {
 
@@ -46,4 +47,7 @@ public class UserController {
 
     public void informatoinInq() { UserService.getService().getUserByUserId();}
 
+    public void getBooking() {
+        UserService.getService().getUserSeq();
+    }
 }

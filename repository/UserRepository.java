@@ -277,4 +277,34 @@ public class UserRepository {
         return user;
     }
 
+
+    public List<UserDto> getBookingByUser(int user_seq) {
+        Connection conn = new JdbcConnection().getJdbc();
+
+        String sql = "select * from Bookings where user_seq = ?";
+
+        List<UserDto> bookingsList = new ArrayList<>();
+
+        try {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+
+            psmt.setInt(1, user_seq);
+            ResultSet resultSet = psmt.executeQuery();
+
+            while (resultSet.next()){
+                UserDto userdto = new UserDto();
+
+                userdto.setBookingSeq(resultSet.getInt("booking_seq"));
+                userdto.setBookingTime(resultSet.getDate("booking_time"));
+                userdto.setSeatNumber(resultSet.getInt("seat_number"));
+                userdto.setUserSeq(resultSet.getInt("user_seq"));
+
+
+                bookingsList.add(userdto);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookingsList;
+    }
 }

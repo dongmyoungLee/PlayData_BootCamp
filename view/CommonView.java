@@ -137,6 +137,7 @@ public class CommonView {
             System.out.println("9. 비밀번호 변경하기");
             System.out.println("10. 내 정보 확인");
             System.out.println("11. 영화 상영관 찾기");
+            System.out.println("12. 예약내역 확인");
 
             System.out.println("0. 종료");
             System.out.print("입력 : ");
@@ -188,6 +189,11 @@ public class CommonView {
                     // 영화 상영관 찾기
                     TheatersController.theatersController().showTheaters();
                     break;
+                    case 12:
+                    // 예약 내역 확인
+                        UserController.getController().getBooking();
+                    break;
+
                 case 0 :
                     // 종료
                     System.out.println("감사합니다. movie_hunter 였습니다.");

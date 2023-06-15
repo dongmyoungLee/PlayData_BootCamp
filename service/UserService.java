@@ -125,4 +125,25 @@ public class UserService {
         System.out.println(userList);
     }
 
+
+
+    public void getUserSeq(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("사용자 번호를 입력해주세요.");
+
+        int userSeq = Integer.parseInt(scanner.nextLine());
+
+        List<UserDto> bookingsList = UserRepository.getRepository().getBookingByUser(userSeq);
+
+        for(int i = 1; i<bookingsList.size(); i++){
+            System.out.println(i + ".");
+            System.out.println("예약번호 : " + bookingsList.get(i-1).getBookingSeq());
+            System.out.println("사용자번호 : " + bookingsList.get(i-1).getUserSeq());
+            System.out.println("예매시간 : " + bookingsList.get(i-1).getBookingTime());
+            System.out.println("좌석번호 : " + bookingsList.get(i-1).getSeatNumber());
+            System.out.println();
+        }
+
+    }
 }

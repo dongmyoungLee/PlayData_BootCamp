@@ -1,5 +1,7 @@
 package domain.dto;
 
+import java.util.Date;
+
 public class UserDto {
 
     private int user_seq;
@@ -7,6 +9,42 @@ public class UserDto {
     private String userEmail;
     private String userPwd;
 
+    public int getBookingSeq() {
+        return bookingSeq;
+    }
+
+    public void setBookingSeq(int bookingSeq) {
+        this.bookingSeq = bookingSeq;
+    }
+
+    public int getUserSeq() {
+        return userSeq;
+    }
+
+    public void setUserSeq(int userSeq) {
+        this.userSeq = userSeq;
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public Date getBookingTime() {
+        return bookingTime;
+    }
+
+    public void setBookingTime(Date bookingTime) {
+        this.bookingTime = bookingTime;
+    }
+
+    private int bookingSeq;
+    private int userSeq;
+    private int seatNumber;
+    private Date bookingTime;
     public UserDto() {};
 
     public UserDto(int user_seq, String userId, String userEmail, String userPwd) {
